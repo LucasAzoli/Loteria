@@ -37,13 +37,18 @@ type Concurso = {
   nome: string
 }
 
+const initialValue: Concurso = {
+  id: 0,
+  nome: 'Mega-Sena',
+}
+
 function Select() {
   const [isOpen, setIsOpen] = useState(false)
-  const [select, setSelect] = useState('MEGA-SENA')
+  const [select, setSelect] = useState<Concurso>(initialValue)
   const toggling = () => setIsOpen(!isOpen)
 
-  const selecting = (value: string) => () => {
-    setSelect(String(value))
+  const selecting = (data: Concurso) => () => {
+    setSelect(data)
     setIsOpen(false)
   }
 
@@ -63,7 +68,7 @@ function Select() {
   return (
     <DropDownContainer>
       <DropDownHeader onClick={toggling}>
-        {select}
+        {select.nome.toUpperCase()}
         <Image
           src="/images/select-icon.svg"
           alt="Icon of Select box"
@@ -75,10 +80,7 @@ function Select() {
         <DropDownList>
           {data &&
             Object.keys(data).map((keyName, i) => (
-              <ListItem
-                onClick={selecting(data[i].nome.toUpperCase())}
-                key={keyName}
-              >
+              <ListItem onClick={selecting(data[i])} key={keyName}>
                 {data[i].nome.toUpperCase()}
               </ListItem>
             ))}
