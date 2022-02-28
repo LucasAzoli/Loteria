@@ -11,6 +11,15 @@ export const GlobalStyles = styled.createGlobalStyle`
     box-sizing: border-box;
   }
 
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-Regular.ttf') format(truetype);
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+  }
+
   /* Remove default margin */
   body,
   h1,

@@ -1,8 +1,14 @@
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+import Select from '../components/select'
+
+const queryClient = new QueryClient()
+
 function Home() {
   return (
-    <div>
-      <h1>Hello, world</h1>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <Select />
+    </QueryClientProvider>
   )
 }
 
