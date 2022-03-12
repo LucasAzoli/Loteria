@@ -18,6 +18,7 @@ export const GlobalStyles = styled.createGlobalStyle`
 
   body {
     font-family: 'Montserrat', sans-serif;
+    background-color: #efefef;
   }
 
   /* Remove default margin */

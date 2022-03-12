@@ -4,7 +4,6 @@ const nextConfig = {
 	swcMinify: true,
 	compiler: {
 		styledComponents: true,
-		removeConsole: true,
 	},
 }
 
