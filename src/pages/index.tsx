@@ -24,34 +24,45 @@ const Container = styled(`div`)`
 `
 
 const Sidebar = styled(`div`)`
-  background-image: url('/images/sidebar.svg');
-  background-repeat: no-repeat;
-  width: 40vw;
+  width: 500px;
   height: 100vh;
-  background-position: left;
-  display: flex;
+  background-color: ${props => props.color || '#6befa3'};
+  padding: 92px 0 92px 96px;
   flex-direction: column;
   justify-content: space-between;
-  padding: 92px 0 92px 96px;
-  background-size: auto 1080px;
-
-  @media (max-width: 1024px) {
-    background-size: auto 1024px;
-    height: 100vh;
-    width: 50vw;
-    padding-right: 60px;
-  }
+  display: flex;
 
   @media (max-width: 768px) {
     background-position: center;
     background-size: 768px;
-    height: 600px;
+    height: 450px;
     width: 100vw;
     align-items: center;
-    padding: 0 0 90px 0;
+    padding: 0 0 0 0;
     background-image: url('/images/sidebar-mobile.svg');
     justify-content: center;
     gap: 70px;
+  }
+`
+
+const Curve = styled(`div`)`
+  background-color: ${props => props.color || '#6befa3'};
+
+  .curve {
+    height: 100vh;
+    overflow: hidden;
+    width: 120px;
+    border-bottom-left-radius: 100%;
+    border-top-left-radius: 100%;
+    background-color: #efefef;
+
+    @media (max-width: 768px) {
+      width: 100vw;
+      height: 150px;
+      border-bottom-left-radius: 0%;
+      border-top-left-radius: 100%;
+      border-top-right-radius: 100%;
+    }
   }
 `
 
@@ -107,10 +118,20 @@ const initialValue: Concurso = {
   concursoId: 2359,
 }
 
+const colors = [
+  '#6BEFA3',
+  '#8666EF',
+  '#DD7AC6',
+  '#FFAB64',
+  '#5AAD7D',
+  '#BFAF83',
+]
+
 function Home() {
   const [Concursos, setConcursos] = useState<Concurso[]>(test)
   const [select, setSelect] = useState<Concurso>(initialValue)
   const [date, setDate] = useState<string>('2022-03-07T20:46:24.757Z')
+  const [color, setColor] = useState<string>('#6befa3')
 
   const { isLoading, error, data } = useQuery<Concurso[]>('concursoData', () =>
     fetch('https://brainn-api-loterias.herokuapp.com/api/v1/loterias').then(
@@ -143,6 +164,7 @@ function Home() {
 
   const setSelectHome = (sel: Concurso) => {
     setSelect(sel)
+    setColor(colors[sel.id])
   }
 
   const setDateHome = (s: string) => {
@@ -156,7 +178,7 @@ function Home() {
 
   return (
     <Container>
-      <Sidebar>
+      <Sidebar color={color}>
         <Select concursos={Concursos} functionConcurso={setSelectHome} />
         <Logo>
           <Image
@@ -175,6 +197,9 @@ function Home() {
           <p className="mobile">CONCURSO Nº {select.concursoId}</p>
         </DadosConcurso>
       </Sidebar>
+      <Curve color={color}>
+        <div className="curve" />
+      </Curve>
       <Result
         concursoId={select.concursoId.toString()}
         functionDate={setDateHome}

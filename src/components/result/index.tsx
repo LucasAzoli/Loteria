@@ -6,12 +6,19 @@ import styled from 'styled-components'
 import type { DataConcurso } from '@/types'
 
 const Container = styled(`div`)`
-  width: calc(100vw - 400px);
+  width: calc(100vw - 600px);
   padding: 92px 96px 92px 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
+  background-color: #efefef;
+
+  @media (max-width: 768px) {
+    min-height: 350px;
+    width: 100vw;
+    height: calc(100vh - 600px);
+  }
 
   div {
     display: flex;
@@ -95,7 +102,7 @@ function Result(props: PropsResult) {
       functionDate(data.data)
     }
     refetch()
-  }, [data, error, isLoading, concursoId])
+  }, [concursoId])
 
   if (isLoading) {
     return <>Loading...</>
